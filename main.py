@@ -1,21 +1,21 @@
-# https://www.freecodecamp.org/news/create-a-discord-bot-with-python/
-
 import discord
 import os
 
-from os import listdir
-from os.path import isfile, join
-
-dirpath = "/function"
-commands = [f for f in listdir(dirpath) if isfile(join(dirpath, f))]
-
-print(commands)
-
-from function.crypt import crypt
-import nasa
+from function.crypt import btc
+import function.nasa as nasa
 
 from keep_alive import keep_alive
 
+# set up commands
+commands = []
+for (dirpath, dirnames, filenames) in os.walk(os.getcwd() + '/function'):
+    for f in filenames:
+      if f.endswith(".py"):
+        commands.append(f[:-3])
+    break
+
+# bot client
+prefix = "$"
 client = discord.Client()
 
 @client.event
@@ -28,18 +28,34 @@ async def on_message(message):
   if message.author == client.user:
     return
 
-  if message.content.startswith('$hello'):
-    await message.channel.send('Hello!')
-    return
+  if message.content.startswith(prefix):
+    msg_parts = message.content[len(prefix):].split()
+    command = msg_parts[0]
+    arguments = msg_parts[1:]
 
-  if message.content.startswith('$crypt'):
-    embed = discord.Embed(title="Crypt",description=crypt(), color=discord.Color.blurple())
-    await message.channel.send(embed=embed)
-    return
+    # Cool! owwo
+    # sfdjlk;
 
-  if message.content.startswith('$pic'):
-    let pic = nasa.pic()
-    await message.channel.send()
+    if command.startswith('hello'):
+      await message.channel.send('Hello!')
+      return
+
+    if command.startswith('args'):
+      await message.channel.send(str(arguments))
+      return
+
+    if command.startswith('btc'):
+      embed = discord.Embed(title="Bitcoin Price",description=btc() +" USD", color=discord.Color.blurple())
+      await message.channel.send(embed=embed)
+      return
+
+    if command.startswith('pic'):
+      pic = nasa.pic()
+      await message.channel.send(pic[0])
+      await message.channel.send(pic[1]+" by "+pic[2])
+      return
+  
+  else: return
     
 keep_alive()
 client.run(os.getenv('TOKEN'))

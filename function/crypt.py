@@ -1,8 +1,7 @@
 from fetch import fetch
 
-def crypt():
-  coin = fetch("https://static.coinpaper.io/api/coins.json")
+def btc():
+  coin = fetch(" https://api.coindesk.com/v1/bpi/currentprice.json")
+  # coin = coin[0]
   text = ""
-  for i in range(3):
-    text += coin[i]["symbol"] + ": " + str(coin[i]["price"])+  " USTD\n"
-  return text
+  return coin["bpi"]["USD"]["rate"]
