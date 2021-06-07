@@ -4,6 +4,9 @@ import os
 from function.crypt import btc
 import function.nasa as nasa
 
+from replit import db
+import stuffs.main as stuffs
+
 from keep_alive import keep_alive
 
 # set up commands
@@ -42,6 +45,18 @@ async def on_message(message):
 
     if command.startswith('args'):
       await message.channel.send(str(arguments))
+      return
+
+    if command.startswith('db'):
+      typ, res = stuffs.handle_db(arguments)
+      if typ == 0:
+        await message.channel.send(str(res))
+      elif typ == 1:
+        embed = discord.Embed(title="Warning",description=res, color=discord.Color.red())
+        await message.channel.send(embed=embed)
+      elif typ == 2:
+        embed = discord.Embed(title="Info",description=res, color=discord.Color.green())
+        await message.channel.send(embed=embed)
       return
 
     if command.startswith('btc'):
