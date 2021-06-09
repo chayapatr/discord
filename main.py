@@ -1,76 +1,68 @@
 import discord
 import os
+from discord.ext import commands
+# from replit import db
+# import stuffs.main as stuffs
 
-from function.crypt import btc
-import function.nasa as nasa
-
-from replit import db
-import stuffs.main as stuffs
-
+from helper import printList
+from command_loader import load
+import react
 from keep_alive import keep_alive
 
-# set up commands
-commands = []
-for (dirpath, dirnames, filenames) in os.walk(os.getcwd() + '/function'):
-    for f in filenames:
-      if f.endswith(".py"):
-        commands.append(f[:-3])
-    break
-
 # bot client
-prefix = "$"
-client = discord.Client()
+prefix = os.getenv('PREFIX')
+intents = discord.Intents.all()
+client = commands.Bot(command_prefix=prefix,intents=intents)
 
+# add command to client
+error_module = load(client)
+
+# debug set up
+printList('Loaded command: ', client.walk_commands())
+printList('Error Module: ', error_module)
+
+# add event
 @client.event
 async def on_ready():
+  try:
+    # reaction role
+    await react.setup(client)
+  except:
+    print('error on reaction message')
   print('We have logged in as {0.user}'.format(client))
 
 @client.event
-async def on_message(message):
-  # print(message.author + ': ' + message.content)
-  if message.author == client.user:
-    return
+async def on_error(err, *args):
+	if err == "on_command_error":
+		await args[0].send("something went wrong, check the command line")
 
-  if message.content.startswith(prefix):
-    msg_parts = message.content[len(prefix):].split()
-    command = msg_parts[0]
-    arguments = msg_parts[1:]
+	raise
 
-    # Cool! owwo
-    # sfdjlk;
+@client.event
+async def on_command_error(ctx, exc):
+	if isinstance(exc, commands.CommandNotFound):
+		pass
+	
+	elif hasattr(exc, 'original'):
+		raise exc.original
 
-    if command.startswith('hello'):
-      await message.channel.send('Hello!')
-      return
+	else:
+		raise exc.original
 
-    if command.startswith('args'):
-      await message.channel.send(str(arguments))
-      return
+# OLD METHOD
+# =================
+# @client.event
+# async def on_message(message):
+# 	command = message[1:]
+# 	arguments = message.split(' ')[1:]
+# 
+# 	if message.author == client.user:
+# 		return
+# 
+# 	if message.content.startswith('$'):
+# 		if command == 'hello':
+# 			await message.channel.send('Hello!')
+# =================
 
-    if command.startswith('db'):
-      typ, res = stuffs.handle_db(arguments)
-      if typ == 0:
-        await message.channel.send(str(res))
-      elif typ == 1:
-        embed = discord.Embed(title="Warning",description=res, color=discord.Color.red())
-        await message.channel.send(embed=embed)
-      elif typ == 2:
-        embed = discord.Embed(title="Info",description=res, color=discord.Color.green())
-        await message.channel.send(embed=embed)
-      return
-
-    if command.startswith('btc'):
-      embed = discord.Embed(title="Bitcoin Price",description=btc() +" USD", color=discord.Color.blurple())
-      await message.channel.send(embed=embed)
-      return
-
-    if command.startswith('pic'):
-      pic = nasa.pic()
-      await message.channel.send(pic[0])
-      await message.channel.send(pic[1]+" by "+pic[2])
-      return
-  
-  else: return
-    
 keep_alive()
 client.run(os.getenv('TOKEN'))

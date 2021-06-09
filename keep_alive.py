@@ -1,6 +1,7 @@
 from flask import Flask
 from threading import Thread
 from random import choice
+import requests
 
 app = Flask('')
 
@@ -8,7 +9,17 @@ quote = ["It’s too bad she won’t live. But then again, who does?", "Now I wa
 
 @app.route('/')
 def home():
-    return choice(quote)
+	# a = requests.get("https://cataas.com/cat")
+	return """
+    <h1 style='color: black; font-family: monospace;'>hackerman101</h1>
+    <p>{p}</p>
+		<img src="https://cataas.com/cat" alt="cat">
+    """.format(p = choice(quote))
+	# return choice(quote)
+
+@app.route('/heyo')
+def heyo():
+  return "heyo"
 
 def run():
   app.run(host='0.0.0.0',port=8080)

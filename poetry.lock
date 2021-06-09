@@ -69,6 +69,14 @@ version = "0.4.4"
 
 [[package]]
 category = "main"
+description = "A data integrity check library"
+name = "compiler"
+optional = false
+python-versions = "*"
+version = "0.2.0"
+
+[[package]]
+category = "main"
 description = "A mirror package for discord.py. Please install that instead."
 name = "discord"
 optional = false
@@ -110,6 +118,14 @@ itsdangerous = ">=2.0"
 [package.extras]
 async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
+
+[[package]]
+category = "main"
+description = "A simple nest list"
+name = "function"
+optional = false
+python-versions = "*"
+version = "1.2.0"
 
 [[package]]
 category = "main"
@@ -203,7 +219,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "0f06394206b13effa08b678d48b92a058ac0229399db151e8e6c957cdf331dde"
+content-hash = "e9fe444857daefa21ad22d09440a825819fd189ea20ee2e1fe9888dba6b95299"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -266,6 +282,10 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
+compiler = [
+    {file = "compiler-0.2.0-py3-none-any.whl", hash = "sha256:995dcdc44805c793ac7fb2f8702683b3d66ae27f2c1862c176a17a9ec9723673"},
+    {file = "compiler-0.2.0.tar.gz", hash = "sha256:4c337bd9926ffef192c0057b853a239cc0acfcb4d3ca32f739c66b5f393f78ba"},
+]
 discord = [
     {file = "discord-1.0.1-py3-none-any.whl", hash = "sha256:9d4debb4a37845543bd4b92cb195bc53a302797333e768e70344222857ff1559"},
     {file = "discord-1.0.1.tar.gz", hash = "sha256:ff6653655e342e7721dfb3f10421345fd852c2a33f2cca912b1c39b3778a9429"},
@@ -277,6 +297,9 @@ discord = [
 flask = [
     {file = "Flask-2.0.1-py3-none-any.whl", hash = "sha256:a6209ca15eb63fc9385f38e452704113d679511d9574d09b2cf9183ae7d20dc9"},
     {file = "Flask-2.0.1.tar.gz", hash = "sha256:1c4c257b1892aec1398784c63791cbaa43062f1f7aeb555c4da961b20ee68f55"},
+]
+function = [
+    {file = "function-1.2.0.tar.gz", hash = "sha256:53eb5eb647e8bec5965fac4870e4bb96fb0fa87960bb21e3e10d2889597fbb7f"},
 ]
 idna = [
     {file = "idna-3.2-py3-none-any.whl", hash = "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a"},

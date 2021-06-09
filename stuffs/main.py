@@ -7,7 +7,7 @@ def handle_db(arguments):
       if arguments[1] in keys:
         return [0, db[arguments[1]]]
       else:
-        return [0, "No key with name "+str(arguments[1])]
+        return [0, "No key with name " + str(arguments[1])]
     else:
       return [1, "Too few argument"]
   elif arguments[0] == "list":
