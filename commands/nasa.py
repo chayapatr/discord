@@ -11,12 +11,12 @@ async def pic(ctx):
 
   await ctx.message.delete()
   nasa = fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
-	
-	embed = discord.Embed(title=nasa["title"], description=nasa["copyright"], timestamp=datetime.datetime.utcnow(), color=discord.Color.blurple())
   
-	embed.set_image(url=nasa["hdurl"])
-	
-	await ctx.send(embed=embed)
+  embed = discord.Embed(title=nasa["title"], description=nasa["copyright"], timestamp=datetime.datetime.utcnow(), color=discord.Color.blurple())
+  
+  embed.set_image(url=nasa["hdurl"])
+  
+  await ctx.send(embed=embed)
 
 def setup(bot):
 	bot.add_command(pic)

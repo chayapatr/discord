@@ -3,6 +3,10 @@ def getprefix(command_name):
 
 @commands.command()
 async def {}(ctx,*args):
+  \"\"\"
+  <a compiled function>
+  \"\"\"
+
   _idx = 0
   def input(*argumentholder):
     nonlocal _idx

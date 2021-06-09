@@ -2,6 +2,10 @@ from discord.ext import commands
 
 @commands.command()
 async def variable_args(ctx,*args):
+  """
+  <a compiled function>
+  """
+
   _idx = 0
   def input(*argumentholder):
     nonlocal _idx

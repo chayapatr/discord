@@ -7,7 +7,7 @@ code_path = wd + '/grader/code.py'
 
 # run test
 def run_test(question):
-  question_path = wd + '/grader/testcase/'
+  question_path = wd + '/grader/challenge/'
   # get question list
   questions = [e for e in os.listdir(question_path) if not os.path.isfile(question_path + e)]
   

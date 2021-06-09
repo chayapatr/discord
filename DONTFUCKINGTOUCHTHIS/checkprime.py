@@ -2,6 +2,10 @@ from discord.ext import commands
 
 @commands.command(aliases=["prime"])
 async def checkprime(ctx,*args):
+  """
+  <a compiled function>
+  """
+
   _idx = 0
   def input():
     nonlocal _idx

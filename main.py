@@ -12,7 +12,7 @@ from keep_alive import keep_alive
 # bot client
 prefix = os.getenv('PREFIX')
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=prefix,intents=intents)
+client = commands.Bot(command_prefix=prefix, intents=intents, help_command=None)
 
 # add command to client
 error_module = load(client)

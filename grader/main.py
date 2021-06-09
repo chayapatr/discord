@@ -12,6 +12,7 @@ async def test(message):
     return
   print(message.content)
   question, code = format_argument(message.content)
+  question = question.lower()
   code_path = os.getcwd() + '/grader/code.py'
   with open(code_path, "w") as f:
     f.write(code)
