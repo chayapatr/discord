@@ -10,6 +10,7 @@ async def info(ctx, *args):
 
   await ctx.message.delete()
   await ctx.send(content)
+  await ctx.send('feel free to contribute with \"$edit\"')
 
 def setup(bot):
   bot.add_command(info)

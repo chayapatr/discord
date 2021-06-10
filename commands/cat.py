@@ -6,6 +6,12 @@ async def cat(ctx, *args):
 	"""
 	Sends a random cat image.
 	The text will display whatever argument was passed through.
+  Sends a random cat image.
+	The text will display whatever argument was passed through.
+  Sends a random cat image.
+	The text will display whatever argument was passed through.
+  Sends a random cat image.
+	The text will display whatever argument was passed through.
 	"""
 	await ctx.message.delete()
 	

@@ -35,7 +35,7 @@ def run_test(question):
 
     result.append(check(outputfile_path,expectedfile_path))
     
-  return result
+  return [result, inputfolder_path]
 
 
 def check(outputfile_path, expectedfile_path):
@@ -45,13 +45,11 @@ def check(outputfile_path, expectedfile_path):
   output_read = open(outputfile_path, "r").read()
   expected_read = open(expectedfile_path, "r").read()
 
-  output_read = output_read.replace("\n","")
-  expected_read = expected_read.replace("\n","")
-
-  # if output_read[-1] == "\n":
-  #   output_read = output_read[0:-1]
-  # if expected_read[-1] == "\n":
-  #   expected_read = expected_read[0:-1]
+  if len(output_read) > 0:
+    if output_read[-1] == "\n":
+      output_read = output_read[0:-1]
+  if expected_read[-1] == "\n":
+    expected_read = expected_read[0:-1]
 
   output.close()
   expected.close()
