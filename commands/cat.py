@@ -15,7 +15,7 @@ async def cat(ctx, *args):
 	"""
 	await ctx.message.delete()
 	
-	embed = discord.Embed()
+	embed = discord.Embed(colour=discord.Colour.random())
 
 	if len(args) > 0:
 		embed.set_image(url="https://cataas.com/cat/cute/says/{text}".format(text=args[0]))

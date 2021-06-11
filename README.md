@@ -1,6 +1,6 @@
 # hackerman 101
 
-## Grader
+## Grader (โปรแกรมตรวจการบ้าน)
 
 เราสามารถใช้บอท hackerman เพื่อตรวจโค้ดการบ้านของเราได้ โดยบอทจะทำการเช็ค output ของโค้ดเรากับ output ที่ควรจะได้
 
@@ -8,11 +8,15 @@ command: `$test <challenge_name> <your_code>`
 
 ตัวอย่าง:
 
-`$test one a = int(input())
+```
+$test one a = int(input())
 b = int(input())
-print(a+b)`
+print(a+b)
+```
 
-## How to add commands
+*Note: ระวัง space ที่เว้นด้วย เพราะ python จะ error ถ้า spacing ไม่ดี*
+
+## How to add commands (เพิ่มคำสั่ง)
 
 เราสามารถเพิ่ม commands ได้สองวิธี
 
@@ -67,24 +71,8 @@ from discord.ext import commands
 @commands.command()
 async def command_name(ctx, *args):
   # ทำทุกอย่างในนี้
+  pass
 
 def setup(bot):
   bot.add_command(command_name)
 ```
-
-
-## Commands
-
-### 🗂 Function Folder
-- crypt
-- pic
-- ... more
-
-### ⚙️ Stuffs
-- db
-  - list
-  - key
-  - set
-
-## Misc.
-- fetch

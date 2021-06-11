@@ -13,8 +13,7 @@ def run_test(question):
   
   print(questions)
   if not question in questions:
-    # handle invalid question name
-    pass
+    return [None, None]
 
   # get filepath
   testpath = question_path + question
@@ -22,7 +21,7 @@ def run_test(question):
   inputfolder_path = testpath + '/in/'
   expectedfolder_path = testpath + '/expected/'
   
-  testcase_number = len (os.listdir(inputfolder_path))
+  testcase_number = len(os.listdir(inputfolder_path))
 
   # loop testcase
   result = []
@@ -31,9 +30,12 @@ def run_test(question):
     expectedfile_path = expectedfolder_path + str(i)
 
     # run test
-    os.system('python3 {0} < {1} > {2}'.format(code_path,inputfile_path, outputfile_path))
+    try:
+      os.system('python3 {0} < {1} > {2}'.format(code_path,inputfile_path, outputfile_path))
+    except:
+      print("error while evaluating user code")
 
-    result.append(check(outputfile_path,expectedfile_path))
+    result.append(check(outputfile_path, expectedfile_path))
     
   return [result, inputfolder_path]
 

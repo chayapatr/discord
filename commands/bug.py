@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-@commands.command()
+@commands.command(aliases=["suffer"])
 async def bug(ctx):
   """
   bug i kwai

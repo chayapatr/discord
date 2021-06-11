@@ -1,4 +1,5 @@
 #!/bin/bash
-rm ./DONTFUCKINGTOUCHTHIS/*
-rm ./DONTFUCKINGTOUCHTHIS/__pycache__/ -rf
-find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+rm ./DONTFUCKINGTOUCHTHIS -rf > /dev/null
+rm ./grader/out > /dev/null
+rm ./grader/code.py > /dev/null
+find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf > /dev/null

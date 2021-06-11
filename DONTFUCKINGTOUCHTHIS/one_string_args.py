@@ -22,8 +22,7 @@ async def one_string_args(ctx,*args):
   await print(product)
 @one_string_args.error
 async def clear_error(ctx,error):
-  await ctx.send('error')
-  await ctx.send(error)
+  print(error)
 
 def setup(bot):
   bot.add_command(one_string_args)

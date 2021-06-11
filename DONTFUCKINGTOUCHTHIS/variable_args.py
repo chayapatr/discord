@@ -23,8 +23,7 @@ async def variable_args(ctx,*args):
   await print(sum)
 @variable_args.error
 async def clear_error(ctx,error):
-  await ctx.send('error')
-  await ctx.send(error)
+  print(error)
 
 def setup(bot):
   bot.add_command(variable_args)
