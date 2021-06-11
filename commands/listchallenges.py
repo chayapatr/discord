@@ -3,8 +3,7 @@ from discord.ext import commands
 import os
 
 challenge_path = "grader/challenge"
-
-challenge_list = os.listdir(challenge_path)
+challenge_list = [ e for e in os.listdir(challenge_path) if not os.path.isfile(challenge_path + '/' + e)]
 
 @commands.command(aliases=['challenges', 'listchallenges', 'ch'])
 async def challenge(ctx, *args):
@@ -34,7 +33,7 @@ async def challenge(ctx, *args):
         title = f.readline()
         description = f.read().split("`Input`")
       res += "`{0}`{1}".format(title, description[0])
-    embed = discord.Embed(title="Challenge List", description=res, colour=discord.Colour.gold())
+    embed = discord.Embed(title="Challenge List", description=res, colour=discord.Colour.teal())
     await ctx.send(embed=embed)
 
 def setup(bot):

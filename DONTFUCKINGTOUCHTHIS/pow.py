@@ -19,8 +19,7 @@ async def pow(ctx,*args):
   await print(a ** b)
 @pow.error
 async def clear_error(ctx,error):
-  await ctx.send('error')
-  await ctx.send(error)
+  print(error)
 
 def setup(bot):
   bot.add_command(pow)

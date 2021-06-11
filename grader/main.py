@@ -1,65 +1,69 @@
 import os
-import discord
 from discord.ext import commands
-from .format_result import format_result
+import discord
+
+from .format import format_argument, format_code, format_result
 from .run_test import run_test
-from .format_argument import format_argument
+from .achievement import set_achievement
 
 PREFIX = os.getenv("PREFIX")
 
-@commands.command(aliases=["run"])
+@commands.command(aliases=["run", "grade"])
 async def test(ctx):
-  """
-  Compares user given code to the solution to check if the results match each other.
-  """
 
   message = ctx.message
   question, code = format_argument(message.content)
   code = format_code(code)
   question = question.lower()
-  code_path = os.getcwd() + '/grader/code.py'
+
+  embed = discord.Embed(title="Challenge: {0}".format(question), colour = discord.Colour.gold(), description="Processing...")
+
+  embed.set_footer(text="@{user}".format(user=message.author.display_name))
+
+  await ctx.message.delete()
+  process = await ctx.author.send(embed=embed)
+
   # save file
+  code_path = os.getcwd() + '/grader/code.py'
   with open(code_path, "w") as f:
     f.write(code)
-  await message.delete()
+  
   result, inputfolder_path = run_test(question)
+  if not result:
+    fail_embed = discord.Embed(title="Unknown Challenge: {0}".format(question), description="unable to find the challenge you're looking for.", colour=discord.Colour.red())
+    return await ctx.author.send(embed=fail_embed)
+
   correct, result = format_result(result, inputfolder_path)
   status = "Pass!" if correct else "Fail :("
 
   colour = discord.Colour.green() if correct else discord.Colour.red()
-	
-  embed = discord.Embed(title="Challenge: {0} -> {1}".format(question, status), colour = colour, description=result.replace("*","\*"))
 
-  embed.set_footer(text="@{user}".format(user=message.author.display_name))
+  # print(result)
 
-  # server message
-  await message.channel.send(embed=embed)
+  await process.delete()
+  
+  if len(result) <= 6000:
+    embed = discord.Embed(title="Challenge: {0} -> {1}".format(question, status), colour = colour, description=result)
 
-  # private message
-  # await ctx.author.send(embed=embed)
+    embed.set_footer(text="@{user}".format(user=message.author.display_name))
+  else:
+    embed = discord.Embed(title="Challenge: {0} -> {1}".format(question, status), colour = colour, description="bruh")
 
-# hello for what
-def format_code(code):
-  prefix = """import multiprocessing
-import sys
+    embed.set_footer(text="@{user}".format(user=message.author.display_name))
 
-def runner():
-  sys.stdin = open(0)
-"""
-  suffix = """timeout = 1
+  await ctx.author.send(embed=embed)
 
-if __name__ == '__main__':
-  p = multiprocessing.Process(target=runner, name="runner")
-  p.start()
+  if correct:
+    res = set_achievement(str(message.author.id), question)
 
-  p.join(timeout)
+    if res != -1:
+      embed_score = discord.Embed(title="Score", description= "You Earn: {0} {1}\nTotal Score: {2} {3}".format(res[1], "Points" if res[1]>1 else "Point", res[0][0], "Points" if res[1]>1 else "Point"), colour=discord.Colour.teal())
 
-  if p.is_alive():
-    print("Terminate  - Exceed Limit Time")
-    p.terminate()
-    p.join()
-"""
-  return prefix+"  "+code.replace("\n","\n  ")+"\n\n"+suffix
+      embed_score.set_footer(text="@{0}".format(message.author.display_name))
 
+      await ctx.author.send(embed=embed_score)
+  
 def setup(bot):
+  # worker2 = threading.Thread(target=asyncio.run_coroutine_threadsafe, args=(run(q),bot.loop))
+  # worker2.start()
   bot.add_command(test)

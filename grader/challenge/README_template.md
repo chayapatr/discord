@@ -13,7 +13,11 @@ Output
 
 `ตัวอย่าง`
 __input__
+```
 input sample
+```
 
 __output__
+```
 output sample
+```

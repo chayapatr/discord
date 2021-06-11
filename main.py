@@ -9,10 +9,12 @@ from command_loader import load
 import react
 from keep_alive import keep_alive
 
+os.system('clear')
+
 # bot client
 PREFIX = os.getenv('PREFIX')
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix=PREFIX, intents=intents, help_command=None)
+client = commands.Bot(command_prefix=PREFIX, intents=intents, help_command=None, case_insensitive=True)
 
 # add command to client
 error_module = load(client)
@@ -28,7 +30,6 @@ async def help(ctx, *args):
   """Provides help information"""
 
   # await ctx.message.delete()
-
   # search for a command
   if len(args) != 0:
     commands_list = []
@@ -59,7 +60,6 @@ async def help(ctx, *args):
     embed = discord.Embed(title="Help", description="type {0}help <command> to get information about a command".format(PREFIX), colour=discord.Colour.blurple())
 
     command_names = map(lambda name: "`{0}`".format(name),[command.name for command in client.commands])
-
     embed.add_field(name="Commands", value=", ".join(command_names))
 
     await ctx.send(embed=embed)

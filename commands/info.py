@@ -1,16 +1,20 @@
+import discord
 from discord.ext import commands
+import os
 
-content = "this is supposed to be info about how to use the bot"
+with open("./commands/INFO.md", "r") as f:
+  title = f.readline()
+  content = "".join(f.read()).replace("PREFIX", os.getenv("PREFIX"))
 
 @commands.command()
 async def info(ctx, *args):
   """
-  returns info about how to use the bot
+  returns info about how to contribute to the bot
   """
 
   await ctx.message.delete()
-  await ctx.send(content)
-  await ctx.send('feel free to contribute with \"$edit\"')
+  embed = discord.Embed(title=title, description=content, colour=discord.Colour.gold())
+  await ctx.send(embed=embed)
 
 def setup(bot):
   bot.add_command(info)

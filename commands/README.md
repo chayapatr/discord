@@ -14,6 +14,7 @@ from discord.ext import commands
 @commands.command()
 async def command_name(ctx, *args):
   # ทำทุกอย่างในนี้
+  pass
 
 def setup(bot):
   bot.add_command(command_name)

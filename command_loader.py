@@ -23,6 +23,8 @@ def load(client):
 
   # compile user code
   files = [ f[:-3] for f in os.listdir(wd + '/user_src') if f.endswith('.py')]
+  if not 'DONTFUCKINGTOUCHTHIS' in os.listdir():
+    os.system('mkdir DONTFUCKINGTOUCHTHIS')
   for filename in files:
     print('Compling: ' + filename)
     compile(filename,wd + '/user_src/{}.py'.format(filename), wd + '/DONTFUCKINGTOUCHTHIS/{}.py'.format(filename))
@@ -42,12 +44,12 @@ def load(client):
       print("An error has occured")
       error_module += [filename]
 
-  try:
-    command_module = import_module('grader.main')
-    command_module.setup(client)
-    print('Loaded: Grader')
-  except:
-    print('Failed to load: Grader')
-    error_module += ['Grader']
+  # try:
+  command_module = import_module('grader.main')
+  command_module.setup(client)
+  #   print('Loaded: Grader')
+  # except:
+  #   print('Failed to load: Grader')
+  #   error_module += ['Grader']
 
   return error_module
